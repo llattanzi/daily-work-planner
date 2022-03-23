@@ -13,5 +13,5 @@ https://llattanzi.github.io/daily-work-planner/
 ![Alt text](./planner-screenshot.JPG?raw=true)
 
 ## Contribution
-Created by Lauren Lattanzi
+Created by Lauren Lattanzi  
 Starter Code: https://github.com/coding-boot-camp/super-disco
