@@ -50,5 +50,7 @@ var taskColors = function() {
     }
 }
 
+$()
+
 setHeaderDate();
 taskColors();
