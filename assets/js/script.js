@@ -23,9 +23,9 @@ var taskColors = function() {
     var numHours = $(".time-block").length;
 
     for (i = 0; i < numHours; i++) {
-        var hour = $(".hour p")[i].textContent;
+        var hour = $(".hour span")[i].textContent;
         // if the hour is PM, add 12 hours to the number to match current time HH format
-        if (hour.includes("P.M.")) {
+        if (hour.includes("P.M.") && !hour.includes("12")) {
             var add = 12;
         }
         else {
@@ -39,13 +39,13 @@ var taskColors = function() {
         hour = hour + add;
         console.log(hour);
         if (hour < currentHour) {
-            $(".description")[i].addClass("past");
+            $(".description").eq(i).addClass("past");
         }
         else if (hour == currentHour) {
-            $(".description")[i].addClass("current");
+            $(".description").eq(i).addClass("current");
         }
         else if (hour > currentHour) {
-            $(".description")[i].addClass("future");
+            $(".description").eq(i).addClass("future");
         }
     }
 }
