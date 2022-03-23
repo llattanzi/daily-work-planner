@@ -14,6 +14,20 @@
 var taskList = {
     description: []
 };
+// get current minute at load time of page
+var minutes = parseInt(moment().format("m"));
+// start a timer at "minutes" that increments each minute the page is active
+// and refreshes the page at the top of the hour so that task priority colors
+// automatically update while the browser has been open for extended time
+var refreshTimer = setInterval(function() {
+    minutes++;
+    console.log(minutes);
+    if (minutes >= 60) {
+        clearInterval(refreshTimer);
+        location.reload();
+    }
+}, 60000)
+
 
 var setHeaderDate = function() {
     var currentDate = moment().format("MMM DD, YYYY");
@@ -64,10 +78,8 @@ $(".saveBtn").click(function() {
 var loadTasks = function() {
     if (localStorage.getItem("tasks")) {
         taskList = JSON.parse(localStorage.getItem("tasks"));
-        console.log(taskList)
         for (i = 0; i < taskList.description.length; i++) {
             if (taskList.description[i]) {
-                console.log(taskList.description[i]);
                 $(".description").eq(i).val(taskList.description[i]);
             }
         }
