@@ -11,6 +11,9 @@
 // THEN the text for that event is saved in local storage
 // WHEN I refresh the page
 // THEN the saved events persist
+var taskList = {
+    description: []
+};
 
 var setHeaderDate = function() {
     var currentDate = moment().format("MMM DD, YYYY");
@@ -18,7 +21,7 @@ var setHeaderDate = function() {
 }
 
 var taskColors = function() {
-    var currentHour = moment().format("HH");
+    var currentHour = moment().format("H");
     currentHour = JSON.parse(currentHour);
     var numHours = $(".time-block").length;
 
@@ -37,7 +40,6 @@ var taskColors = function() {
         // convert to number
         hour = JSON.parse(hour);
         hour = hour + add;
-        console.log(hour);
         if (hour < currentHour) {
             $(".description").eq(i).addClass("past");
         }
@@ -50,7 +52,28 @@ var taskColors = function() {
     }
 }
 
-$()
+// when save button is clicked
+$(".saveBtn").click(function() {
+    // get value user input for task description
+    var taskIndex = $(".saveBtn").index(this);
+    var taskDescription = $(this).siblings(".description").val();
+    taskList.description[taskIndex] = taskDescription;
+    localStorage.setItem("tasks", JSON.stringify(taskList));
+})
 
+var loadTasks = function() {
+    if (localStorage.getItem("tasks")) {
+        taskList = JSON.parse(localStorage.getItem("tasks"));
+        console.log(taskList)
+        for (i = 0; i < taskList.description.length; i++) {
+            if (taskList.description[i]) {
+                console.log(taskList.description[i]);
+                $(".description").eq(i).val(taskList.description[i]);
+            }
+        }
+    }
+}
+
+loadTasks();
 setHeaderDate();
 taskColors();
